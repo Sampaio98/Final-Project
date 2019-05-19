@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-public class Service {
+public class Attendance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,13 +39,13 @@ public class Service {
 
     @JoinColumn(name = "service_type_fk")
     @ManyToOne(fetch = FetchType.EAGER)
-    private ServiceType serviceType;
+    private AttendanceType attendanceType;
 
     @JoinColumn(name = "street_fk")
     @ManyToOne(fetch = FetchType.EAGER)
     private Street street;
 
-    public Service() {
+    public Attendance() {
         this.dateInsertion = LocalDateTime.now();
     }
 }

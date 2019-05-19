@@ -20,9 +20,9 @@ public class Professional extends User{
 
     @OneToMany(mappedBy = "professional", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "professional")
-    private List<Service> services;
+    private List<Attendance> attendances;
 
     public Professional() {
-        this.services = new ArrayList<>();
+        this.attendances = new ArrayList<>();
     }
 }

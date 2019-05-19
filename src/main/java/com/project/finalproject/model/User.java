@@ -47,7 +47,7 @@ public class User {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "user")
-    private List<Service> services;
+    private List<Attendance> attendances;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "user")
@@ -56,7 +56,7 @@ public class User {
     public User() {
         this.deleted = false;
         this.dateInsertion = LocalDateTime.now();
-        this.services = new ArrayList<>();
+        this.attendances = new ArrayList<>();
         this.streets = new ArrayList<>();
     }
 

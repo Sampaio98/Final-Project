@@ -1,10 +1,10 @@
 package com.project.finalproject;
 
 import com.project.finalproject.model.Professional;
-import com.project.finalproject.model.Service;
+import com.project.finalproject.model.Attendance;
 import com.project.finalproject.model.User;
 import com.project.finalproject.repository.ProfessionalRepository;
-import com.project.finalproject.repository.ServiceRepository;
+import com.project.finalproject.repository.AttendanceRepository;
 import com.project.finalproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,7 +21,7 @@ public class FinalprojectApplication implements CommandLineRunner {
 	private ProfessionalRepository professionalRepository;
 
 	@Autowired
-	private ServiceRepository serviceRepository;
+	private AttendanceRepository attendanceRepository;
 
 
 	public static void main(String[] args) {
@@ -42,11 +42,11 @@ public class FinalprojectApplication implements CommandLineRunner {
 		userRepository.save(user);
 		professionalRepository.save(professional);
 
-		Service service = new Service();
-		service.setUser(user);
-		service.setProfessional(professional);
-		service.setWorth(true);
-		user.getServices().add(service);
+		Attendance attendance = new Attendance();
+		attendance.setUser(user);
+		attendance.setProfessional(professional);
+		attendance.setWorth(true);
+		user.getAttendances().add(attendance);
 		userRepository.save(user);
 
 	}

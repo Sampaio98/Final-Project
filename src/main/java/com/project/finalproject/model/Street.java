@@ -1,7 +1,6 @@
 package com.project.finalproject.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,11 +35,11 @@ public class Street {
 
     @JsonIgnore
     @OneToMany(mappedBy = "street", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Service> services;
+    private List<Attendance> attendances;
 
     public Street(){
         this.deleted = false;
-        this.services = new ArrayList<>();
+        this.attendances = new ArrayList<>();
     }
 
 }
