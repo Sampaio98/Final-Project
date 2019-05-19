@@ -11,17 +11,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Arrays;
+
 @SpringBootApplication
 public class FinalprojectApplication implements CommandLineRunner {
 
 	@Autowired
 	private UserRepository userRepository;
-
-	@Autowired
-	private ProfessionalRepository professionalRepository;
-
-	@Autowired
-	private AttendanceRepository attendanceRepository;
 
 
 	public static void main(String[] args) {
@@ -31,23 +27,31 @@ public class FinalprojectApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		User user = new User();
-		user.setUsername("alfredo98");
-		user.setName("Alfredo");
-
-		Professional professional = new Professional();
-		professional.setName("Zé Porva");
-		professional.setUsername("ZehPorva98");
-
-		userRepository.save(user);
-		professionalRepository.save(professional);
-
-		Attendance attendance = new Attendance();
-		attendance.setUser(user);
-		attendance.setProfessional(professional);
-		attendance.setWorth(true);
-		user.getAttendances().add(attendance);
-		userRepository.save(user);
+//		User user = new User();
+//		user.setName("ZÉ PORVA");
+//		user.setUsername("zeporva");
+//		user.setCpf("557.727.410-98");
+//		user.setEmail("zeporva@hotmail.com");
+//		user.setPhone("43 9999-9999");
+//		user.setPassword("12345");
+//
+//		User user2 = new User();
+//		user2.setName("Rogerin bala tensa");
+//		user2.setUsername("rogerin");
+//		user2.setPassword("12345");
+//		user2.setCpf("622.182.160-60");
+//		user2.setEmail("rogerin@hotmail.com");
+//		user2.setPhone("43 8888-8888");
+//
+//		User user3 = new User();
+//		user3.setName("Duana Nou");
+//		user3.setUsername("duana");
+//		user3.setPassword("12345");
+//		user3.setCpf("677.293.640-00");
+//		user3.setEmail("duana@hotmail.com");
+//		user3.setPhone("43 7777-7777");
+//
+//		userRepository.saveAll(Arrays.asList(user, user2, user3));
 
 	}
 }

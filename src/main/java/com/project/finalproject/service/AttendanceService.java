@@ -2,7 +2,6 @@ package com.project.finalproject.service;
 
 import com.project.finalproject.exception.handler.DataIntegrityException;
 import com.project.finalproject.exception.handler.ObjectNotFoundException;
-import com.project.finalproject.model.Attendance;
 import com.project.finalproject.model.AttendanceType;
 import com.project.finalproject.repository.AttendanceTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

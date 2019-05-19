@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +24,7 @@ public class AttendanceType {
     private Long id;
 
     @Column(name = "service_name", unique = true)
+    @NotEmpty(message = "Preenchimento obrigatório")
     private String name;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
