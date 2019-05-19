@@ -39,7 +39,7 @@ public class UserDTO {
     }
 
     public UserDTO convertToDto(User user){
-        BeanUtils.copyProperties(user, this, "attendances", "streets");
+        BeanUtils.copyProperties(user, this, "attendances", "streets", "dateInsertion");
         return this;
     }
 

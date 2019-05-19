@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.project.finalproject.annotation.UserUpdate;
 import com.project.finalproject.dto.UserInsertDTO;
+import com.project.finalproject.dto.UserUpdateDTO;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
@@ -140,6 +142,11 @@ public class User {
 
     public User fromDTO(UserInsertDTO userInsertDTO) {
         BeanUtils.copyProperties(userInsertDTO, this);
+        return this;
+    }
+
+    public User fromDTO(UserUpdateDTO userUpdateDTO) {
+        BeanUtils.copyProperties(userUpdateDTO, this);
         return this;
     }
 }
