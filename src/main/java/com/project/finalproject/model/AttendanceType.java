@@ -3,8 +3,10 @@ package com.project.finalproject.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.project.finalproject.dto.AttendanceTypeDTO;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -43,5 +45,10 @@ public class AttendanceType {
 
     public void setName(String name) {
         this.name = name.toUpperCase();
+    }
+
+    public AttendanceType fromDTO(AttendanceTypeDTO attendanceTypeDTO) {
+        BeanUtils.copyProperties(attendanceTypeDTO, this);
+        return this;
     }
 }

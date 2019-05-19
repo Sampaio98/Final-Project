@@ -1,6 +1,6 @@
 package com.project.finalproject.annotation;
 
-import com.project.finalproject.annotation.implementation.UserInsertValidator;
+import com.project.finalproject.annotation.implementation.AttendanceTypeValidationImpl;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -9,12 +9,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = UserInsertValidator.class)
-@Target({ ElementType.TYPE })
+@Constraint(validatedBy = AttendanceTypeValidationImpl.class)
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 
-
-public @interface UserInsert {
+public @interface AttendanceTypeValidation {
     String message() default "Erro de validação";
 
     Class<?>[] groups() default {};

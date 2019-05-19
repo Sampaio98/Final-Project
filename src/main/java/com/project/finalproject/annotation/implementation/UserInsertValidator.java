@@ -15,7 +15,7 @@ import java.util.List;
 public class UserInsertValidator implements ConstraintValidator<UserInsert, UserInsertDTO> {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository repository;
 
 
     @Override
@@ -28,10 +28,10 @@ public class UserInsertValidator implements ConstraintValidator<UserInsert, User
 
         List<FieldMessage> list = new ArrayList<>();
 
-        User userEmail = userRepository.findByEmail(userDTO.getEmail());
-        User userCpf = userRepository.findByCpf(userDTO.getCpf());
-        User userPhone = userRepository.findByPhone(userDTO.getPhone());
-        User username = userRepository.findByUsername(userDTO.getUsername().toUpperCase());
+        User userEmail = repository.findByEmail(userDTO.getEmail());
+        User userCpf = repository.findByCpf(userDTO.getCpf());
+        User userPhone = repository.findByPhone(userDTO.getPhone());
+        User username = repository.findByUsername(userDTO.getUsername().toUpperCase());
 
         if (userEmail != null) {
             list.add(new FieldMessage("email", "Email já existente."));

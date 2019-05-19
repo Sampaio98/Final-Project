@@ -1,6 +1,5 @@
 package com.project.finalproject.service;
 
-import com.project.finalproject.exception.handler.DataIntegrityException;
 import com.project.finalproject.exception.handler.ObjectNotFoundException;
 import com.project.finalproject.model.AttendanceType;
 import com.project.finalproject.repository.AttendanceTypeRepository;
@@ -10,13 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static java.util.Objects.nonNull;
-
 @Service
 @Transactional
 public class AttendanceService {
 
-    private static final String DUPLICATED_DATA = "Tipo de serviço já cadastrado, tente outro.";
     private static final String CLASS_NAME = "Tipo de serviço";
 
     @Autowired
@@ -24,12 +20,6 @@ public class AttendanceService {
 
 
     public AttendanceType insert(AttendanceType attendanceType) {
-        AttendanceType typeName = repository.findByName(attendanceType.getName());
-
-        if (nonNull(typeName)) {
-            throw new DataIntegrityException(DUPLICATED_DATA);
-        }
-
         return repository.save(attendanceType);
     }
 

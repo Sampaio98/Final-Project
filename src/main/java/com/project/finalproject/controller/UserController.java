@@ -1,6 +1,5 @@
 package com.project.finalproject.controller;
 
-import com.project.finalproject.annotation.UserInsert;
 import com.project.finalproject.dto.UserDTO;
 import com.project.finalproject.dto.UserInsertDTO;
 import com.project.finalproject.model.User;

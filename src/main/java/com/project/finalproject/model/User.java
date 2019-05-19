@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.project.finalproject.annotation.UserUpdate;
 import com.project.finalproject.dto.UserInsertDTO;
 import lombok.Getter;
 import lombok.Setter;

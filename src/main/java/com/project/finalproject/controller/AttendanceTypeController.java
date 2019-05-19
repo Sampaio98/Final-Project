@@ -1,5 +1,6 @@
 package com.project.finalproject.controller;
 
+import com.project.finalproject.dto.AttendanceTypeDTO;
 import com.project.finalproject.model.AttendanceType;
 import com.project.finalproject.service.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ public class AttendanceTypeController {
     private AttendanceService service;
 
     @PostMapping(value = "/attendaceType")
-    public ResponseEntity<Void> insert(@Valid @RequestBody AttendanceType attendanceType){
+    public ResponseEntity<Void> insert(@Valid @RequestBody AttendanceTypeDTO attendanceTypeDTO){
+        AttendanceType attendanceType = new AttendanceType().fromDTO(attendanceTypeDTO);
         AttendanceType typeSaved = service.insert(attendanceType);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(typeSaved.getId()).toUri();
