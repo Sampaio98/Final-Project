@@ -1,9 +1,6 @@
 package com.project.finalproject.controller;
 
-import com.project.finalproject.annotation.UserUpdate;
-import com.project.finalproject.dto.UserDTO;
-import com.project.finalproject.dto.UserInsertDTO;
-import com.project.finalproject.dto.UserUpdateDTO;
+import com.project.finalproject.dto.*;
 import com.project.finalproject.model.User;
 import com.project.finalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +21,7 @@ public class UserController {
 
     @PostMapping(value = "/user")
     public ResponseEntity<Void> insert(@Valid @RequestBody UserInsertDTO userInsertDTO){
-        User user = new User().fromDTO(userInsertDTO);
-        User userSaved = service.insert(user);
+        User userSaved = service.insert(userInsertDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(userSaved.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -54,5 +50,11 @@ public class UserController {
     public ResponseEntity<Void> softDeleteById(@PathVariable("id") Long id){
         service.softDeleteById(id);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(value = "/user/login")
+    public ResponseEntity<User> login(@RequestBody LoginDTO loginDTO){
+        User user = service.login(loginDTO);
+        return ResponseEntity.ok().body(user);
     }
 }

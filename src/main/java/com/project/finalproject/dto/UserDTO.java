@@ -2,16 +2,12 @@ package com.project.finalproject.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.project.finalproject.model.Attendance;
-import com.project.finalproject.model.Street;
 import com.project.finalproject.model.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -29,17 +25,12 @@ public class UserDTO {
 
     private String phone;
     private String username;
-    private String password;
-    private List<Attendance> attendances;
-    private List<Street> streets;
 
     public UserDTO(){
-        this.attendances = new ArrayList<>();
-        this.streets = new ArrayList<>();
     }
 
     public UserDTO convertToDto(User user){
-        BeanUtils.copyProperties(user, this, "attendances", "streets", "dateInsertion");
+        BeanUtils.copyProperties(user, this);
         return this;
     }
 
@@ -54,12 +45,11 @@ public class UserDTO {
                 Objects.equals(email, userDTO.email) &&
                 Objects.equals(dateInsertion, userDTO.dateInsertion) &&
                 Objects.equals(phone, userDTO.phone) &&
-                Objects.equals(username, userDTO.username) &&
-                Objects.equals(password, userDTO.password);
+                Objects.equals(username, userDTO.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, cpf, email, dateInsertion, phone, username, password);
+        return Objects.hash(id, name, cpf, email, dateInsertion, phone, username);
     }
 }

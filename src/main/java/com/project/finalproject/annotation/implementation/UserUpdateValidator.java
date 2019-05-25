@@ -37,9 +37,9 @@ public class UserUpdateValidator implements ConstraintValidator<UserUpdate, User
 
         List<FieldMessage> list = new ArrayList<>();
 
-        User userEmail = repository.findByEmail(userUpdateDTO.getEmail());
-        User userPhone = repository.findByPhone(userUpdateDTO.getPhone());
-        User username = repository.findByUsername(userUpdateDTO.getUsername().toUpperCase());
+        User userEmail = repository.findByEmailAndDeletedFalse(userUpdateDTO.getEmail());
+        User userPhone = repository.findByPhoneAndDeletedFalse(userUpdateDTO.getPhone());
+        User username = repository.findByUsernameAndDeletedFalse(userUpdateDTO.getUsername().toUpperCase());
 
         if (userEmail != null && !userEmail.getId().equals(uriId)) {
             list.add(new FieldMessage("email", "Email já existente"));

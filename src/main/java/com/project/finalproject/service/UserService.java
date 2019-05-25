@@ -1,7 +1,11 @@
 package com.project.finalproject.service;
 
+import com.project.finalproject.dto.LoginDTO;
+import com.project.finalproject.dto.ProfessionalInsertDTO;
 import com.project.finalproject.dto.UserDTO;
+import com.project.finalproject.dto.UserInsertDTO;
 import com.project.finalproject.exception.handler.ObjectNotFoundException;
+import com.project.finalproject.model.Professional;
 import com.project.finalproject.model.User;
 import com.project.finalproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 @Service
 @Transactional
 public class UserService {
 
-    private static final String CLASS_NAME = "Usuário";
+    private static final String CLASS_NAME = "Usuário não encontrado.";
+    private static final String USER_NOT_FOUND = "Usuário ou senha incorreto.";
 
     @Autowired
     private UserRepository repository;
@@ -23,6 +30,22 @@ public class UserService {
 
     public User insert(User user) {
         return repository.save(user);
+    }
+
+    public Professional insert (Professional professional){
+        return repository.save(professional);
+    }
+
+    public User insert(UserInsertDTO userInsertDTO){
+        if (userInsertDTO instanceof ProfessionalInsertDTO) {
+            Professional professional = new Professional().fromDTO(userInsertDTO);
+            Professional professionalSaved = insert(professional);
+            professionalSaved.generateCode();
+            return professionalSaved;
+        } else {
+            User user = new User().fromDTO(userInsertDTO);
+            return insert(user);
+        }
     }
 
     public User findById(Long id) {
@@ -47,5 +70,14 @@ public class UserService {
     public void update(Long id, User userFromFront) {
         User userFromDb = findById(id);
         userFromDb.update(userFromFront);
+    }
+
+    public User login(LoginDTO loginDTO) {
+        User user = repository.findByUsernameAndPasswordAndDeletedFalse(loginDTO.getUsername(), loginDTO.getPassword());
+        if (isNull(user)) {
+            throw new ObjectNotFoundException(USER_NOT_FOUND);
+        } else {
+            return user;
+        }
     }
 }

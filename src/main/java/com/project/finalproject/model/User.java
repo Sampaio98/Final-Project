@@ -1,10 +1,6 @@
 package com.project.finalproject.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.project.finalproject.annotation.UserUpdate;
+import com.fasterxml.jackson.annotation.*;
 import com.project.finalproject.dto.UserInsertDTO;
 import com.project.finalproject.dto.UserUpdateDTO;
 import lombok.Getter;
@@ -27,6 +23,7 @@ import java.util.Objects;
 @Entity
 @Where(clause = "deleted = 'false'")
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public class User {
 
     @Id
@@ -68,6 +65,7 @@ public class User {
     @Column(unique = true)
     private String username;
 
+    @JsonIgnore
     @NotNull
     @NotEmpty(message = "Preenchimento obrigatório")
     private String password;
