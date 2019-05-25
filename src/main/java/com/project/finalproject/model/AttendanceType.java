@@ -17,7 +17,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "SERVICE_TYPE")
+@Table(name = "ATTENDANCE_TYPE")
 public class AttendanceType {
 
     @Id
