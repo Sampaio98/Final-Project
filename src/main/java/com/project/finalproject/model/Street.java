@@ -31,6 +31,7 @@ public class Street {
     private String cep;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @Column(name = "user_fk")
     private User user;
 
     @JsonIgnore

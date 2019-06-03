@@ -44,7 +44,7 @@ public class User {
     @Email(message = "Email inválido")
     @NotNull
     @NotEmpty(message = "Preenchimento obrigatório")
-    @Column(unique = true)
+    @Column(name = "email_address", unique = true)
     private String email;
 
     @Column(name = "date_insertion")
@@ -57,17 +57,18 @@ public class User {
 
     @NotNull
     @NotEmpty(message = "Preenchimento obrigatório")
-    @Column(unique = true)
+    @Column(name = "phone_number", unique = true)
     private String phone;
 
     @NotNull
     @NotEmpty(message = "Preenchimento obrigatório")
-    @Column(unique = true)
+    @Column(name = "user_name", unique = true)
     private String username;
 
     @JsonIgnore
     @NotNull
     @NotEmpty(message = "Preenchimento obrigatório")
+    @Column(name = "account_password")
     private String password;
 
     @JsonIgnore
