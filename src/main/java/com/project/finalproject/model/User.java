@@ -62,12 +62,13 @@ public class User {
 
     @NotNull
     @NotEmpty(message = "Preenchimento obrigatório")
-    @Column(unique = true)
+    @Column(name = "user_name", unique = true)
     private String username;
 
     @JsonIgnore
     @NotNull
     @NotEmpty(message = "Preenchimento obrigatório")
+    @Column(name = "account_password")
     private String password;
 
     @JsonIgnore
