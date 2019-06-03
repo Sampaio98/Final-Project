@@ -21,6 +21,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
+@Where(clause = "deleted = 'false'")
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public class User {
