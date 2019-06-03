@@ -21,7 +21,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Where(clause = "deleted = 'false'")
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public class User {
@@ -62,13 +61,12 @@ public class User {
 
     @NotNull
     @NotEmpty(message = "Preenchimento obrigatório")
-    @Column(name = "user_name", unique = true)
+    @Column(unique = true)
     private String username;
 
     @JsonIgnore
     @NotNull
     @NotEmpty(message = "Preenchimento obrigatório")
-    @Column(name = "account_password")
     private String password;
 
     @JsonIgnore
