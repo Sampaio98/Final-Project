@@ -19,7 +19,7 @@ public class AttendanceTypeController {
     @Autowired
     private AttendanceService service;
 
-    @PostMapping(value = "/attendaceType")
+    @PostMapping(value = "/attendanceType")
     public ResponseEntity<Void> insert(@Valid @RequestBody AttendanceTypeDTO attendanceTypeDTO){
         AttendanceType attendanceType = new AttendanceType().fromDTO(attendanceTypeDTO);
         AttendanceType typeSaved = service.insert(attendanceType);
@@ -28,19 +28,19 @@ public class AttendanceTypeController {
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping(value = "/attendaceType/{id}")
+    @GetMapping(value = "/attendanceType/{id}")
     public ResponseEntity<AttendanceType> findById(@PathVariable("id") Long id){
         AttendanceType type = service.findById(id);
         return ResponseEntity.ok().body(type);
     }
 
-    @GetMapping(value = "/attendaceTypes")
+    @GetMapping(value = "/attendanceTypes")
     public ResponseEntity<List<AttendanceType>> findAll(){
         List<AttendanceType> attendanceTypes = service.findAll();
         return ResponseEntity.ok().body(attendanceTypes);
     }
 
-    @DeleteMapping(value = "/attendaceType/{id}")
+    @DeleteMapping(value = "/attendanceType/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable("id") Long id){
         service.deleteById(id);
         return ResponseEntity.ok().build();
