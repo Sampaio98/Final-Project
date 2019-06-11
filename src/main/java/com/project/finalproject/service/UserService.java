@@ -1,11 +1,9 @@
 package com.project.finalproject.service;
 
 import com.project.finalproject.dto.LoginDTO;
-import com.project.finalproject.dto.ProfessionalInsertDTO;
 import com.project.finalproject.dto.UserDTO;
 import com.project.finalproject.dto.UserInsertDTO;
 import com.project.finalproject.exception.handler.ObjectNotFoundException;
-import com.project.finalproject.model.Professional;
 import com.project.finalproject.model.User;
 import com.project.finalproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,20 +30,9 @@ public class UserService {
         return repository.save(user);
     }
 
-    public Professional insert (Professional professional){
-        return repository.save(professional);
-    }
-
     public User insert(UserInsertDTO userInsertDTO){
-        if (userInsertDTO instanceof ProfessionalInsertDTO) {
-            Professional professional = new Professional().fromDTO(userInsertDTO);
-            Professional professionalSaved = insert(professional);
-            professionalSaved.generateCode();
-            return professionalSaved;
-        } else {
-            User user = new User().fromDTO(userInsertDTO);
-            return insert(user);
-        }
+        User user = new User().fromDTO(userInsertDTO);
+        return insert(user);
     }
 
     public User findById(Long id) {

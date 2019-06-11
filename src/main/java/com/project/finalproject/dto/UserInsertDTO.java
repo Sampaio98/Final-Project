@@ -1,9 +1,8 @@
 package com.project.finalproject.dto;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.project.finalproject.annotation.UserInsert;
-import com.project.finalproject.model.Attendance;
-import com.project.finalproject.model.Professional;
 import com.project.finalproject.model.Street;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,11 +19,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @UserInsert
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = ProfessionalInsertDTO.class, name = "Professional")}
-)
 public class UserInsertDTO {
 
     @NotNull
