@@ -2,10 +2,9 @@ package com.project.finalproject.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.project.finalproject.annotation.UserInsert;
 import com.project.finalproject.annotation.UserUpdate;
+import com.project.finalproject.model.Address;
 import com.project.finalproject.model.Attendance;
-import com.project.finalproject.model.Street;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
@@ -57,11 +56,11 @@ public class UserUpdateDTO {
 
     private List<Attendance> attendances;
 
-    private List<Street> streets;
+    private List<Address> address;
 
     public UserUpdateDTO(){
         this.attendances = new ArrayList<>();
-        this.streets = new ArrayList<>();
+        this.address = new ArrayList<>();
     }
 
     @Override

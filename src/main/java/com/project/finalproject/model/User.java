@@ -72,18 +72,18 @@ public class User {
     private String password;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Attendance> attendances;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "user")
-    private List<Street> streets;
+    private List<Address> address;
 
     public User() {
         this.deleted = false;
         this.dateInsertion = LocalDateTime.now();
         this.attendances = new ArrayList<>();
-        this.streets = new ArrayList<>();
+        this.address = new ArrayList<>();
     }
 
     @Override
@@ -136,7 +136,7 @@ public class User {
     }
 
     public void update(User userFromFront) {
-        BeanUtils.copyProperties(userFromFront, this, "id", "attendances", "streets", "dateInsertion");
+        BeanUtils.copyProperties(userFromFront, this, "id", "attendances", "address", "dateInsertion");
     }
 
     public User fromDTO(UserInsertDTO userInsertDTO) {

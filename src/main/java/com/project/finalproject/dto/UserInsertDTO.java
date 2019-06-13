@@ -3,7 +3,7 @@ package com.project.finalproject.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.project.finalproject.annotation.UserInsert;
-import com.project.finalproject.model.Street;
+import com.project.finalproject.model.Address;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
@@ -51,10 +51,10 @@ public class UserInsertDTO {
     @NotEmpty(message = "Preenchimento obrigatório")
     private String password;
 
-    private List<Street> streets;
+    private List<Address> address;
 
     public UserInsertDTO() {
-        this.streets = new ArrayList<>();
+        this.address = new ArrayList<>();
         this.dateInsertion = LocalDateTime.now();
     }
 

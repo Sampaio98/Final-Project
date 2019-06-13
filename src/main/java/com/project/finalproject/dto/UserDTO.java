@@ -18,11 +18,6 @@ public class UserDTO {
     private String name;
     private String cpf;
     private String email;
-
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime dateInsertion;
-
     private String phone;
     private String username;
 
@@ -43,13 +38,12 @@ public class UserDTO {
                 Objects.equals(name, userDTO.name) &&
                 Objects.equals(cpf, userDTO.cpf) &&
                 Objects.equals(email, userDTO.email) &&
-                Objects.equals(dateInsertion, userDTO.dateInsertion) &&
                 Objects.equals(phone, userDTO.phone) &&
                 Objects.equals(username, userDTO.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, cpf, email, dateInsertion, phone, username);
+        return Objects.hash(id, name, cpf, email, phone, username);
     }
 }

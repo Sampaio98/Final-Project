@@ -41,9 +41,9 @@ public class Attendance {
     @ManyToOne(fetch = FetchType.EAGER)
     private AttendanceType attendanceType;
 
-    @JoinColumn(name = "street_fk")
+    @JoinColumn(name = "address_fk")
     @ManyToOne(fetch = FetchType.EAGER)
-    private Street street;
+    private Address address;
 
     public Attendance() {
         this.dateInsertion = LocalDateTime.now();

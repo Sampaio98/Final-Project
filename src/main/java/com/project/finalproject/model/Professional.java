@@ -23,7 +23,7 @@ public class Professional extends User{
 
     private String code;
 
-    @OneToMany(mappedBy = "professional", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "professional", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "professional")
     private List<Attendance> attendances;
 
