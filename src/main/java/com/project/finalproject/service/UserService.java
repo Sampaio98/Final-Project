@@ -57,6 +57,7 @@ public class UserService {
     public void update(Long id, User userFromFront) {
         User userFromDb = findById(id);
         userFromDb.update(userFromFront);
+        repository.save(userFromDb);
     }
 
     public User login(LoginDTO loginDTO) {

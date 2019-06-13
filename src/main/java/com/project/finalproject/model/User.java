@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.beans.BeanUtils;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -17,6 +18,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static java.util.Objects.isNull;
 
 @Getter
 @Setter
@@ -76,7 +79,7 @@ public class User {
     private List<Attendance> attendances;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnoreProperties(value = "user")
+    @JsonIgnoreProperties("user")
     private List<Address> address;
 
     public User() {
@@ -135,10 +138,6 @@ public class User {
         this.deleted = true;
     }
 
-    public void update(User userFromFront) {
-        BeanUtils.copyProperties(userFromFront, this, "id", "attendances", "address", "dateInsertion");
-    }
-
     public User fromDTO(UserInsertDTO userInsertDTO) {
         BeanUtils.copyProperties(userInsertDTO, this);
         return this;
@@ -147,5 +146,35 @@ public class User {
     public User fromDTO(UserUpdateDTO userUpdateDTO) {
         BeanUtils.copyProperties(userUpdateDTO, this);
         return this;
+    }
+
+    public void update(User userFromFront) {
+        if (isNull(userFromFront.getPassword())) {
+            BeanUtils.copyProperties(userFromFront, this, "id", "attendances", "address", "dateInsertion", "password");
+        } else {
+            BeanUtils.copyProperties(userFromFront, this, "id", "attendances", "address", "dateInsertion");
+        }
+        verifyAddress(userFromFront);
+    }
+
+    private void verifyAddress(User userFromFront) {
+        if (!CollectionUtils.isEmpty(userFromFront.getAddress())) {
+            userFromFront.getAddress().forEach(obj -> {
+                if (isNull(obj.getId())) {
+                    obj.setUser(this);
+                    this.address.add(obj);
+                } else {
+                    updateAddressFromUser(obj);
+                }
+            });
+        }
+    }
+
+    private void updateAddressFromUser(Address obj) {
+        this.address.forEach(objFromDb -> {
+            if (objFromDb.getId().equals(obj.getId())) {
+                objFromDb.update(obj);
+            }
+        });
     }
 }
