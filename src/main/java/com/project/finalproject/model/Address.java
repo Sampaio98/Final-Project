@@ -32,7 +32,7 @@ public class Address {
     private User user;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "address", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "address", fetch = FetchType.LAZY)
     private List<Attendance> attendances;
 
     public Address() {

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 
@@ -41,12 +42,9 @@ public class UserService {
 
     public List<UserDTO> findAllDTO() {
         List<User> users = repository.findAll();
-        List<UserDTO> userDTOS = new ArrayList<>();
-        users.forEach(user -> {
-            UserDTO userDTO = new UserDTO().convertToDto(user);
-            userDTOS.add(userDTO);
-        });
-        return userDTOS;
+        return users.stream()
+                .map(user -> new UserDTO().convertToDto(user))
+                .collect(Collectors.toList());
     }
 
     public void softDeleteById(Long id) {
