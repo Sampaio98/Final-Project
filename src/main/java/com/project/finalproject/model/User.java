@@ -154,17 +154,24 @@ public class User {
         } else {
             BeanUtils.copyProperties(userFromFront, this, "id", "attendances", "address", "dateInsertion");
         }
-        verifyAddress(userFromFront);
+        addOrUpdateAddress(userFromFront);
     }
 
-    private void verifyAddress(User userFromFront) {
+    private void addOrUpdateAddress(User userFromFront) {
         if (!CollectionUtils.isEmpty(userFromFront.getAddress())) {
-            userFromFront.getAddress().forEach(obj -> {
-                if (isNull(obj.getId())) {
-                    obj.setUser(this);
-                    this.address.add(obj);
+
+            userFromFront.getAddress().forEach(addressFromFront -> {
+                if (isNull(addressFromFront.getId())) {
+                    addressFromFront.setUser(this);
+                    this.address.add(addressFromFront);
                 } else {
-                    updateAddressFromUser(obj);
+                    updateAddressFromUser(addressFromFront);
+                }
+            });
+
+            this.address.forEach(addressFromDb -> {
+                if (!userFromFront.getAddress().contains(addressFromDb)) {
+                    addressFromDb.setUser(null);
                 }
             });
         }
