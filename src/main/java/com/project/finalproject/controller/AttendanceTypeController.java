@@ -2,7 +2,7 @@ package com.project.finalproject.controller;
 
 import com.project.finalproject.dto.AttendanceTypeDTO;
 import com.project.finalproject.model.AttendanceType;
-import com.project.finalproject.service.AttendanceService;
+import com.project.finalproject.service.AttendanceTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,7 @@ import java.util.List;
 public class AttendanceTypeController {
 
     @Autowired
-    private AttendanceService service;
+    private AttendanceTypeService service;
 
     @PostMapping(value = "/attendanceType")
     public ResponseEntity<Void> insert(@Valid @RequestBody AttendanceTypeDTO attendanceTypeDTO){

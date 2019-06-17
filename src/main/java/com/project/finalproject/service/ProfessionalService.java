@@ -1,6 +1,7 @@
 package com.project.finalproject.service;
 
 import com.project.finalproject.dto.ProfessionalDTO;
+import com.project.finalproject.exception.handler.ObjectNotFoundException;
 import com.project.finalproject.model.Professional;
 import com.project.finalproject.repository.ProfessionalRepository;
 import com.project.finalproject.util.Pagination;
@@ -18,6 +19,8 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class ProfessionalService {
+
+    private static final String CLASS_NAME = "Profissional não encontrado.";
 
     @Autowired
     private ProfessionalRepository repository;
@@ -38,5 +41,9 @@ public class ProfessionalService {
                 .stream()
                 .map(professional -> new ProfessionalDTO().fromEntity(professional))
                 .collect(Collectors.toList());
+    }
+
+    public Professional findById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException(CLASS_NAME));
     }
 }

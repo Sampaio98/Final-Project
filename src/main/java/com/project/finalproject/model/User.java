@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 @Getter
 @Setter
@@ -74,8 +75,8 @@ public class User {
     @NotEmpty(message = "Preenchimento obrigatório")
     private String password;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("user")
     private List<Attendance> attendances;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -127,11 +128,15 @@ public class User {
     }
 
     public void setName(String name) {
-        this.name = name.toUpperCase();
+        if (nonNull(name)) {
+            this.name = name.toUpperCase();
+        }
     }
 
     public void setUsername(String username) {
-        this.username = username.toUpperCase();
+        if (nonNull(username)) {
+            this.username = username.toUpperCase();
+        }
     }
 
     public void softDelete() {
@@ -158,7 +163,7 @@ public class User {
     }
 
     private void addOrUpdateAddress(User userFromFront) {
-        if (!CollectionUtils.isEmpty(userFromFront.getAddress())) {
+        if (userFromFront.getAddress() != null) {
 
             userFromFront.getAddress().forEach(addressFromFront -> {
                 if (isNull(addressFromFront.getId())) {
@@ -177,12 +182,11 @@ public class User {
         }
     }
 
-    private void updateAddressFromUser(Address obj) {
-        this.address.forEach(objFromDb -> {
-            if (objFromDb.getId().equals(obj.getId())) {
-                objFromDb.update(obj);
+    private void updateAddressFromUser(Address addressFromFront) {
+        this.address.forEach(addressFromDb -> {
+            if (addressFromDb.getId().equals(addressFromFront.getId())) {
+                addressFromDb.update(addressFromFront);
             }
         });
     }
-
 }

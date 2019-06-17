@@ -1,37 +1,36 @@
 package com.project.finalproject.service;
 
-import com.project.finalproject.exception.handler.ObjectNotFoundException;
-import com.project.finalproject.model.AttendanceType;
-import com.project.finalproject.repository.AttendanceTypeRepository;
+import com.project.finalproject.model.Attendance;
+import com.project.finalproject.model.Professional;
+import com.project.finalproject.model.User;
+import com.project.finalproject.repository.AttendanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Service
 @Transactional
 public class AttendanceService {
 
-    private static final String CLASS_NAME = "Tipo de serviço";
+    @Autowired
+    private AttendanceRepository attendanceRepository;
 
     @Autowired
-    private AttendanceTypeRepository repository;
+    private ProfessionalService professionalService;
 
 
-    public AttendanceType insert(AttendanceType attendanceType) {
-        return repository.save(attendanceType);
+    public Attendance create(Attendance attendance, User user) {
+        Professional professional = professionalService.findById(attendance.getProfessional().getId());
+
+        attendance.setDateInsertion(LocalDateTime.now());
+        attendance.setUser(user);
+        attendance.setProfessional(professional);
+        return attendance;
     }
 
-    public AttendanceType findById(Long id){
-        return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException(CLASS_NAME));
-    }
-
-    public List<AttendanceType> findAll() {
-        return repository.findAll();
-    }
-
-    public void deleteById(Long id) {
-        repository.deleteById(id);
+    public Attendance insert(Attendance attendance, User user) {
+        return attendanceRepository.save(create(attendance, user));
     }
 }

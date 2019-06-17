@@ -1,7 +1,11 @@
 package com.project.finalproject.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.project.finalproject.dto.AttendanceDTO;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,9 +22,11 @@ public class Attendance {
     private Integer situation;
 
     @Column(name = "date_insertion")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dateInsertion;
 
     @Column(name = "date_modification")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime dateModification;
 
     private Integer evaluation;
@@ -35,6 +41,7 @@ public class Attendance {
 
     @JoinColumn(name = "professional_fk")
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"attendances", "address"})
     private Professional professional;
 
     @JoinColumn(name = "service_type_fk")
@@ -43,9 +50,16 @@ public class Attendance {
 
     @JoinColumn(name = "address_fk")
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("user")
     private Address address;
 
     public Attendance() {
         this.dateInsertion = LocalDateTime.now();
+    }
+
+    public Attendance fromDTO(AttendanceDTO attendanceDTO) {
+        BeanUtils.copyProperties(attendanceDTO, this);
+        this.professional = new Professional().fromDTO(attendanceDTO.getProfessionalDTO());
+        return this;
     }
 }

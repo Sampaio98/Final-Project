@@ -1,20 +1,23 @@
 package com.project.finalproject.service;
 
+import com.project.finalproject.dto.AttendanceDTO;
 import com.project.finalproject.dto.LoginDTO;
 import com.project.finalproject.dto.UserDTO;
 import com.project.finalproject.dto.UserInsertDTO;
 import com.project.finalproject.exception.handler.ObjectNotFoundException;
+import com.project.finalproject.model.Attendance;
 import com.project.finalproject.model.User;
 import com.project.finalproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 @Service
 @Transactional
@@ -26,12 +29,15 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    private AttendanceService attendanceService;
+
 
     public User insert(User user) {
         return repository.save(user);
     }
 
-    public User insert(UserInsertDTO userInsertDTO){
+    public User insert(UserInsertDTO userInsertDTO) {
         User user = new User().fromDTO(userInsertDTO);
         return insert(user);
     }
@@ -64,6 +70,18 @@ public class UserService {
             throw new ObjectNotFoundException(USER_NOT_FOUND);
         } else {
             return user;
+        }
+    }
+
+    public void requestAttendance(UserDTO userDTO) {
+        if (nonNull(userDTO.getAttendanceDTO())) {
+            User user = findById(userDTO.getId());
+            AttendanceDTO attendanceDTO = userDTO.getAttendanceDTO();
+            Attendance attendance = new Attendance().fromDTO(attendanceDTO);
+            attendanceService.insert(attendance, user);
+
+        } else {
+            //TODO TRATAR EXCEÇÃO QUANDO NÃO HOUVER ATTENDACES
         }
     }
 }

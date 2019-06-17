@@ -1,13 +1,10 @@
 package com.project.finalproject.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.project.finalproject.model.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter
@@ -20,6 +17,7 @@ public class UserDTO {
     private String email;
     private String phone;
     private String username;
+    private AttendanceDTO attendanceDTO;
 
     public UserDTO(){
     }

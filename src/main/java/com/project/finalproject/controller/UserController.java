@@ -1,6 +1,9 @@
 package com.project.finalproject.controller;
 
-import com.project.finalproject.dto.*;
+import com.project.finalproject.dto.LoginDTO;
+import com.project.finalproject.dto.UserDTO;
+import com.project.finalproject.dto.UserInsertDTO;
+import com.project.finalproject.dto.UserUpdateDTO;
 import com.project.finalproject.model.User;
 import com.project.finalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +23,7 @@ public class UserController {
     private UserService service;
 
     @PostMapping(value = "/user")
-    public ResponseEntity<Void> insert(@Valid @RequestBody UserInsertDTO userInsertDTO){
+    public ResponseEntity<Void> insert(@Valid @RequestBody UserInsertDTO userInsertDTO) {
         User userSaved = service.insert(userInsertDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(userSaved.getId()).toUri();
@@ -28,36 +31,39 @@ public class UserController {
     }
 
     @GetMapping(value = "/user/{id}")
-    public ResponseEntity<User> findById(@PathVariable("id") Long id){
+    public ResponseEntity<User> findById(@PathVariable("id") Long id) {
         User user = service.findById(id);
         return ResponseEntity.ok().body(user);
     }
 
     @GetMapping(value = "/users")
-    public ResponseEntity<List<UserDTO>> findAllDTO(){
+    public ResponseEntity<List<UserDTO>> findAllDTO() {
         List<UserDTO> users = service.findAllDTO();
         return ResponseEntity.ok().body(users);
     }
 
     @PutMapping(value = "/user/{id}")
-    public ResponseEntity<Void> update(@PathVariable("id") Long id, @Valid @RequestBody UserUpdateDTO userUpdateDTO){
+    public ResponseEntity<Void> update(@PathVariable("id") Long id, @Valid @RequestBody UserUpdateDTO userUpdateDTO) {
         User user = new User().fromDTO(userUpdateDTO);
         service.update(id, user);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(value = "/user/{id}")
-    public ResponseEntity<Void> softDeleteById(@PathVariable("id") Long id){
+    public ResponseEntity<Void> softDeleteById(@PathVariable("id") Long id) {
         service.softDeleteById(id);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping(value = "/user/login")
-    public ResponseEntity<User> login(@RequestBody LoginDTO loginDTO){
+    public ResponseEntity<User> login(@RequestBody LoginDTO loginDTO) {
         User user = service.login(loginDTO);
         return ResponseEntity.ok().body(user);
     }
 
-
-
+    @PostMapping(value = "/user/request")
+    public ResponseEntity<Void> requestAttendance(@RequestBody UserDTO userDTO) {
+        service.requestAttendance(userDTO);
+        return ResponseEntity.ok().build();
+    }
 }

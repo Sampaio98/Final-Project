@@ -3,6 +3,7 @@ package com.project.finalproject.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.project.finalproject.dto.ProfessionalDTO;
 import com.project.finalproject.dto.UserInsertDTO;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +20,7 @@ import java.util.List;
 @Setter
 @Entity
 @JsonTypeName("Professional")
-public class Professional extends User{
+public class Professional extends User {
 
     private String code;
 
@@ -34,6 +35,11 @@ public class Professional extends User{
 
     public Professional fromDTO(UserInsertDTO userInsertDTO) {
         BeanUtils.copyProperties(userInsertDTO, this);
+        return this;
+    }
+
+    public Professional fromDTO(ProfessionalDTO professionalDTO) {
+        BeanUtils.copyProperties(professionalDTO, this);
         return this;
     }
 
